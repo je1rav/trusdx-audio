@@ -2,7 +2,7 @@
 
 # de SQ3SWF, PE1NNZ 2023
 # Modified by JE1RAV to use with ADX-S digital transeiver.
-# Sends commands during CAT polling from the PC on the TX back to the PC without sending them to the digital transceiver.
+# CAT polling commands from the PC during TX are answered to the PC without sending them to the digital transceiver.
 # It prevents disturbance of the transmission tone generation in the transceiver.
 
 # Linux:
