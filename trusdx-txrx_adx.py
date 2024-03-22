@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # de SQ3SWF, PE1NNZ 2023
+# Modified by JE1RAV to use with ADX-S digital transeiver.
+# CAT polling commands from WSJT-X during TX are answered to without sending them to the digital transceiver.
+# It prevents disturbance of the transmission tone generation in the transceiver.
 
 # Linux:
 # sudo apt install portaudio19-dev
@@ -52,7 +55,7 @@ buf = []    # buffer for received audio
 urs = [0]   # underrun counter
 status = [False, False, True, False, False]	# tx_state, cat_streaming_state, running, cat_active, keyed_by_rts_dtr
 
-freq = "00007041000" # frequency using for CAT polling during TX
+freq = "00007074000" # frequency string using for CAT polling
 
 def log(msg):
     if config['verbose']: print(f"{datetime.datetime.utcnow()} {msg}")
@@ -93,7 +96,7 @@ def handle_rx_audio(ser, cat, pastream, d):
                 cat.write(d)
                 cat.flush()
                 log(f"O: {d}")  # in CAT command mode
-                if d.startswith(b'FA'):  # store the frequency of ADX during RX
+                if d.startswith(b'FA'):  # store the frequency data from ADX during RX
                     global freq
                     freq = d.decode('utf-8')[2:13]
             else:
